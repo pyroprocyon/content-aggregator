@@ -2,6 +2,7 @@ package com.ctambaoan.aggregator.connector;
 
 import com.ctambaoan.aggregator.model.Article;
 import com.ctambaoan.aggregator.model.NewsArticleResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -9,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Component
 public class NewsApiClient {
   private final String baseUrl;
@@ -21,11 +23,13 @@ public class NewsApiClient {
 
   public List<Article> fetchArticles(String category) {
     String newUrl = String.format("%s&category=%s", baseUrl, category);
+    log.info("URL: {}", newUrl);
     NewsArticleResponse articleResponse = restTemplate.getForObject(newUrl, NewsArticleResponse.class);
     if (articleResponse == null || articleResponse.getArticles() == null) {
       return Collections.emptyList();
     }
     articleResponse.getArticles().forEach(article -> article.setCategory(category));
+    log.info("Article response size: {}", articleResponse.getArticles().size());
     return articleResponse.getArticles();
   }
 }
