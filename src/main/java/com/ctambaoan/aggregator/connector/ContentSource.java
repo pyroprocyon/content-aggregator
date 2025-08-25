@@ -1,6 +1,6 @@
 package com.ctambaoan.aggregator.connector;
 
-import com.ctambaoan.aggregator.model.Article;
+import com.ctambaoan.aggregator.dto.ArticleDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,5 +12,5 @@ public abstract class ContentSource {
 
   private final String name;
 
-  public abstract List<Article> fetchArticles();
+  public abstract List<ArticleDto> fetchArticles();
 }

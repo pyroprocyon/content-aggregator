@@ -1,23 +1,24 @@
 package com.ctambaoan.aggregator.connector;
 
-import com.ctambaoan.aggregator.model.Article;
+import com.ctambaoan.aggregator.dto.ArticleDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.ctambaoan.aggregator.connector.NewsSourceEnum.SCIENCE;
+
 @Component("science")
 public class ScienceNewsSource extends ContentSource {
 
-  public static final String SCIENCE = "science";
   private final NewsApiClient apiClient;
 
   public ScienceNewsSource(NewsApiClient apiClient) {
-    super(SCIENCE);
+    super(SCIENCE.name());
     this.apiClient = apiClient;
   }
 
   @Override
-  public List<Article> fetchArticles() {
-    return apiClient.fetchArticles(SCIENCE);
+  public List<ArticleDto> fetchArticles() {
+    return apiClient.fetchArticles(SCIENCE.name());
   }
 }

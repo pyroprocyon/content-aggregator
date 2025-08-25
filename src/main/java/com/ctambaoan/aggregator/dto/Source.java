@@ -1,4 +1,4 @@
-package com.ctambaoan.aggregator.model;
+package com.ctambaoan.aggregator.dto;
 
 import lombok.Data;
 

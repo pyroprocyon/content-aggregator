@@ -1,12 +1,10 @@
 package com.ctambaoan.aggregator.service;
 
-import com.ctambaoan.aggregator.model.Article;
+import com.ctambaoan.aggregator.entity.Article;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public interface ContentService {
 
-  CompletableFuture<List<Article>> fetchArticles();
-
+  List<Article> getArticles();
 }

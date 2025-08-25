@@ -1,7 +1,7 @@
 package com.ctambaoan.aggregator.connector;
 
-import com.ctambaoan.aggregator.model.Article;
-import com.ctambaoan.aggregator.model.NewsArticleResponse;
+import com.ctambaoan.aggregator.dto.ArticleDto;
+import com.ctambaoan.aggregator.dto.NewsArticleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,15 +21,21 @@ public class NewsApiClient {
     this.baseUrl = baseUrl;
   }
 
-  public List<Article> fetchArticles(String category) {
-    String newUrl = String.format("%s&category=%s", baseUrl, category);
-    log.info("URL: {}", newUrl);
-    NewsArticleResponse articleResponse = restTemplate.getForObject(newUrl, NewsArticleResponse.class);
-    if (articleResponse == null || articleResponse.getArticles() == null) {
+  public List<ArticleDto> fetchArticles(String category) {
+    var articleResponse = getNewsArticleResponse(category);
+    if (articleResponse == null) {
       return Collections.emptyList();
     }
-    articleResponse.getArticles().forEach(article -> article.setCategory(category));
-    log.info("Article response size: {}", articleResponse.getArticles().size());
-    return articleResponse.getArticles();
+    List<ArticleDto> articles = articleResponse.getArticles();
+    articles.forEach(article -> article.setCategory(category));
+    log.info("{} article response size: {}", category, articles.size());
+    return articles;
   }
+
+  private NewsArticleResponse getNewsArticleResponse(String category) {
+    String newUrl = String.format("%s&category=%s", baseUrl, category);
+    log.info("Fetching content from: {}", newUrl);
+    return restTemplate.getForObject(newUrl, NewsArticleResponse.class);
+  }
+
 }
