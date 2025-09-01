@@ -21,13 +21,13 @@ public class NewsApiClient {
     this.baseUrl = baseUrl;
   }
 
-  public List<ArticleDto> fetchArticles(String category) {
-    var articleResponse = getNewsArticleResponse(category);
+  public List<ArticleDto> fetchArticles(NewsSourceEnum category) {
+    var articleResponse = getNewsArticleResponse(category.name());
     if (articleResponse == null) {
       return Collections.emptyList();
     }
     List<ArticleDto> articles = articleResponse.getArticles();
-    articles.forEach(article -> article.setCategory(category.toLowerCase()));
+    articles.forEach(article -> article.setCategory(category.name().toLowerCase()));
     log.info("{} article response size: {}", category, articles.size());
     return articles;
   }

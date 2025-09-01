@@ -81,8 +81,8 @@ public class ContentServiceImpl implements ContentService {
 
   private List<CompletableFuture<List<ArticleDto>>> fetchFutureArticles() {
     return Arrays.stream(NewsSourceEnum.values())
-        .map(value -> CompletableFuture.supplyAsync(
-            () -> newsApiClient.fetchArticles(value.name()), executor))
+        .map(category -> CompletableFuture.supplyAsync(
+            () -> newsApiClient.fetchArticles(category), executor))
         .toList();
   }
 

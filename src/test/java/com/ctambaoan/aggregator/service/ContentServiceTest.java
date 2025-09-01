@@ -43,14 +43,14 @@ class ContentServiceTest {
     for (NewsSourceEnum category : NewsSourceEnum.values()) {
       switch (category) {
         case TECHNOLOGY:
-          when(mockNewsApiClient.fetchArticles(category.name())).thenReturn(List.of(newTechArticle));
+          when(mockNewsApiClient.fetchArticles(category)).thenReturn(List.of(newTechArticle));
           break;
         case BUSINESS:
-          when(mockNewsApiClient.fetchArticles(category.name())).thenReturn(List.of(existingBusinessArticle));
+          when(mockNewsApiClient.fetchArticles(category)).thenReturn(List.of(existingBusinessArticle));
           break;
         default:
           // For all other categories, return an empty list.
-          when(mockNewsApiClient.fetchArticles(category.name())).thenReturn(Collections.emptyList());
+          when(mockNewsApiClient.fetchArticles(category)).thenReturn(Collections.emptyList());
           break;
       }
     }
