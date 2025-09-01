@@ -1,6 +1,7 @@
 package com.ctambaoan.aggregator.service;
 
-import com.ctambaoan.aggregator.connector.ContentSource;
+import com.ctambaoan.aggregator.connector.NewsApiClient;
+import com.ctambaoan.aggregator.connector.NewsSourceEnum;
 import com.ctambaoan.aggregator.dto.ArticleDto;
 import com.ctambaoan.aggregator.entity.Article;
 import com.ctambaoan.aggregator.repository.ArticleRepository;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -23,15 +25,15 @@ import static java.time.LocalDateTime.now;
 @Service
 public class ContentServiceImpl implements ContentService {
 
-  private final List<ContentSource> sources;
+  private final NewsApiClient newsApiClient;
   private final Executor executor;
   private final ArticleRepository repository;
 
   public ContentServiceImpl(
-      List<ContentSource> sources,
+      NewsApiClient newsApiClient,
       @Qualifier("contentFetcherExecutor") Executor executor,
       ArticleRepository repository) {
-    this.sources = sources;
+    this.newsApiClient = newsApiClient;
     this.executor = executor;
     this.repository = repository;
   }
@@ -73,8 +75,9 @@ public class ContentServiceImpl implements ContentService {
   }
 
   private List<CompletableFuture<List<ArticleDto>>> fetchFutureArticles() {
-    return sources.stream()
-        .map(source -> CompletableFuture.supplyAsync(source::fetchArticles, executor))
+    return Arrays.stream(NewsSourceEnum.values())
+        .map(value -> CompletableFuture.supplyAsync(
+            () -> newsApiClient.fetchArticles(value.name()), executor))
         .toList();
   }
 

@@ -22,8 +22,8 @@ public class ContentController {
 
   @GetMapping
   public ResponseEntity<List<Article>> fetchArticles(
-      @RequestParam int page,
-      @RequestParam int size,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "20") int size,
       @RequestParam(required = false) String sortBy
   ) {
     var sort = Sort.by(sortBy == null ? "id" : sortBy).ascending();
