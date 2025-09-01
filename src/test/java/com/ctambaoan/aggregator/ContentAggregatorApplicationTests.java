@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.ctambaoan.aggregator.connector.NewsSourceEnum.TECHNOLOGY;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -36,15 +35,19 @@ class ContentAggregatorApplicationTests {
 
   @Test
   void testGetArticles() throws Exception {
-    Article testArticle = new Article(TestDataFactory.createMockArticleDto(TECHNOLOGY.name(), "technology.com"));
+    Article testArticle = new Article(TestDataFactory
+        .createMockArticleDto("TECHNOLOGY", "technology.com"));
     repository.save(testArticle);
 
     mockMvc.perform(get("/api/articles"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(APPLICATION_JSON))
-        .andExpect(jsonPath("$", hasSize(1)))
-        .andExpect(jsonPath("$[0].category", is(TECHNOLOGY.name())))
-        .andExpect(jsonPath("$[0].url", is(testArticle.getUrl())));
+        .andExpect(jsonPath("$.totalElements", is(1)))
+        .andExpect(jsonPath("$.totalPages", is(1)))
+        .andExpect(jsonPath("$.size", is(20))) // Assuming default size
+        .andExpect(jsonPath("$.content", hasSize(1)))
+        .andExpect(jsonPath("$.content[0].category", is("TECHNOLOGY")))
+        .andExpect(jsonPath("$.content[0].url", is("technology.com")));
   }
 
 }

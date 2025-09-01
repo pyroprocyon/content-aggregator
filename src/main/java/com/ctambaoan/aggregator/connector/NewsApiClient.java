@@ -27,7 +27,7 @@ public class NewsApiClient {
       return Collections.emptyList();
     }
     List<ArticleDto> articles = articleResponse.getArticles();
-    articles.forEach(article -> article.setCategory(category));
+    articles.forEach(article -> article.setCategory(category.toLowerCase()));
     log.info("{} article response size: {}", category, articles.size());
     return articles;
   }

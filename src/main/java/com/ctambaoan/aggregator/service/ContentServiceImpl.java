@@ -43,6 +43,11 @@ public class ContentServiceImpl implements ContentService {
     return repository.findAll(pageable);
   }
 
+  @Override
+  public Page<Article> getArticlesByCategory(String category, PageRequest pageable) {
+    return repository.findByCategoryIgnoreCase(category, pageable);
+  }
+
   @Profile("!test")
   @Scheduled(fixedDelayString = "${news.api.caching.delay}")
   public void cacheData() {

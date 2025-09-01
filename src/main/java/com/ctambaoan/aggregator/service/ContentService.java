@@ -7,4 +7,6 @@ import org.springframework.data.domain.PageRequest;
 public interface ContentService {
 
   Page<Article> getArticles(PageRequest pageable);
+
+  Page<Article> getArticlesByCategory(String category, PageRequest pageable);
 }
