@@ -7,6 +7,8 @@ import com.ctambaoan.aggregator.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +37,8 @@ public class ContentServiceImpl implements ContentService {
   }
 
   @Override
-  public List<Article> getArticles() {
-    return repository.findAll();
+  public Page<Article> getArticles(PageRequest pageable) {
+    return repository.findAll(pageable);
   }
 
   @Profile("!test")

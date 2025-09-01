@@ -1,5 +1,5 @@
 package com.ctambaoan.aggregator.connector;
 
 public enum NewsSourceEnum {
-  TECHNOLOGY, BUSINESS, SCIENCE
+  BUSINESS, ENTERTAINMENT, GENERAL, HEALTH, SCIENCE, SPORTS, TECHNOLOGY
 }

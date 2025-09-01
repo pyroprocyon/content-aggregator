@@ -1,5 +1,6 @@
 package com.ctambaoan.aggregator.configuration;
 
+import com.ctambaoan.aggregator.connector.NewsSourceEnum;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -14,7 +15,7 @@ public class AppConfig {
 
   @Bean
   public Executor contentFetcherExecutor() {
-    return Executors.newFixedThreadPool(3);
+    return Executors.newFixedThreadPool(NewsSourceEnum.values().length);
   }
 
   @Bean

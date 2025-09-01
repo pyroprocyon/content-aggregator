@@ -1,10 +1,10 @@
 package com.ctambaoan.aggregator.service;
 
 import com.ctambaoan.aggregator.entity.Article;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface ContentService {
 
-  List<Article> getArticles();
+  Page<Article> getArticles(PageRequest pageable);
 }
