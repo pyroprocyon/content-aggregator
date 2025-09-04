@@ -2,17 +2,17 @@ package com.ctambaoan.aggregator.connector;
 
 import com.ctambaoan.aggregator.dto.ArticleDto;
 import com.ctambaoan.aggregator.dto.NewsArticleResponse;
+import java.util.Collections;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.List;
-
 @Slf4j
 @Component
 public class NewsApiClient {
+
   private final String baseUrl;
   private final RestTemplate restTemplate;
 
@@ -21,7 +21,7 @@ public class NewsApiClient {
     this.baseUrl = baseUrl;
   }
 
-  public List<ArticleDto> fetchArticles(NewsSourceEnum category) {
+  public List<ArticleDto> fetchArticles(NewsCategory category) {
     var articleResponse = getNewsArticleResponse(category.name());
     if (articleResponse == null) {
       return Collections.emptyList();

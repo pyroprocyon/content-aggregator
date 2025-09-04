@@ -27,11 +27,18 @@ public class ContentController {
       @RequestParam(defaultValue = "asc") String sortDir,
       @RequestParam(required = false) String category
   ) {
-    if (page < 0) page = 0;
-    if (size < 1) size = 1;
-    if (size > 100) size = 100;
+    if (page < 0) {
+      page = 0;
+    }
+    if (size < 1) {
+      size = 1;
+    }
+    if (size > 100) {
+      size = 100;
+    }
 
-    Sort.Direction direction = "desc".equalsIgnoreCase(sortDir) ? Sort.Direction.DESC : Sort.Direction.ASC;
+    Sort.Direction direction =
+        "desc".equalsIgnoreCase(sortDir) ? Sort.Direction.DESC : Sort.Direction.ASC;
     var sort = Sort.by(direction, sortBy);
     var pageable = PageRequest.of(page, size, sort);
 

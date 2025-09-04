@@ -2,7 +2,6 @@ package com.ctambaoan.aggregator.service;
 
 import com.ctambaoan.aggregator.dto.ArticleDto;
 import com.ctambaoan.aggregator.dto.Source;
-
 import java.time.LocalDateTime;
 
 public class TestDataFactory {
