@@ -24,7 +24,7 @@ public class Article {
   private String title;
   @Column(length = 500)
   private String description;
-  @Column(unique = true)
+  @Column(unique = true, length = 400)
   private String url;
   private LocalDateTime publishedAt;
 
