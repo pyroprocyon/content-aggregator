@@ -4,22 +4,16 @@ import com.ctambaoan.aggregator.dto.ArticleDto;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.util.concurrent.ExecutorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class NewsFetcherImpl implements NewsFetcher {
 
   private final NewsApiClient newsApiClient;
-  private final Executor executor;
-
-  public NewsFetcherImpl(
-      NewsApiClient newsApiClient,
-      @Qualifier("contentFetcherExecutor") Executor executor) {
-    this.newsApiClient = newsApiClient;
-    this.executor = executor;
-  }
+  private final ExecutorService executor;
 
   @Override
   public CompletableFuture<List<ArticleDto>> fetchArticles() {
