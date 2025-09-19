@@ -2,7 +2,6 @@ package com.ctambaoan.aggregator.configuration;
 
 import static org.springframework.data.web.config.EnableSpringDataWebSupport.PageSerializationMode.VIA_DTO;
 
-import com.ctambaoan.aggregator.connector.NewsCategory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +15,7 @@ public class AppConfig {
 
   @Bean
   public ExecutorService contentFetcherExecutor() {
-    return Executors.newFixedThreadPool(NewsCategory.values().length);
+    return Executors.newVirtualThreadPerTaskExecutor();
   }
 
   @Bean
