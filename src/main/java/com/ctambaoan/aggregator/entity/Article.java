@@ -20,11 +20,13 @@ public class Article {
   private long id;
   private String source;
   private String category;
+  @Column(length = 500)
   private String author;
+  @Column(length = 500)
   private String title;
   @Column(length = 500)
   private String description;
-  @Column(unique = true, length = 400)
+  @Column(unique = true, length = 500)
   private String url;
   private LocalDateTime publishedAt;
 

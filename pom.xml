@@ -64,6 +64,10 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -71,6 +75,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
+          <parameters>true</parameters>
           <annotationProcessorPaths>
             <path>
               <groupId>org.projectlombok</groupId>
