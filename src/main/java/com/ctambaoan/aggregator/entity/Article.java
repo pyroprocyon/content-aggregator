@@ -1,32 +1,22 @@
 package com.ctambaoan.aggregator.entity;
 
 import com.ctambaoan.aggregator.dto.ArticleDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import java.time.LocalDateTime;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Getter
+@Data
 @NoArgsConstructor
 public class Article {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String source;
   private String category;
-  @Column(length = 500)
   private String author;
-  @Column(length = 500)
   private String title;
-  @Column(length = 500)
   private String description;
-  @Column(unique = true, length = 500)
   private String url;
   private LocalDateTime publishedAt;
 

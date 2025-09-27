@@ -3,9 +3,11 @@ package com.ctambaoan.aggregator.repository;
 import com.ctambaoan.aggregator.entity.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+public interface ArticleRepository extends CrudRepository<Article, Long>,
+    PagingAndSortingRepository<Article, Long> {
 
   boolean existsByUrl(String url);
 
